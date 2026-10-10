@@ -1,0 +1,15 @@
+# Entorno virtual (se recrea con requirements.txt)
+venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Base de datos local (cada computadora crea la suya)
+db.sqlite3
+
+# Archivos de configuración privados (los usaremos más adelante)
+.env
+
+# Archivos temporales de pytest
+.pytest_cache/
