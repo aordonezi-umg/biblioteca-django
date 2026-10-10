@@ -39,6 +39,7 @@ INSTALLED_APPS = INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalogo',
     'prestamos',
+    'reportes',
 ]
     
 

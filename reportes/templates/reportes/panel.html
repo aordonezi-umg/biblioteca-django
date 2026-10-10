@@ -1,0 +1,79 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Inicio</a> &rsaquo; Reportes
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+  <p>Fecha del reporte: <strong>{{ hoy|date:"d/m/Y" }}</strong></p>
+
+  <h2>Resumen general</h2>
+  <table>
+    <tbody>
+      <tr><th>Libros en el catálogo</th><td>{{ resumen.total_libros }}</td></tr>
+      <tr><th>Préstamos activos</th><td>{{ resumen.prestamos_activos }}</td></tr>
+      <tr><th>Préstamos vencidos</th><td>{{ resumen.prestamos_vencidos }}</td></tr>
+      <tr><th>Total de multas registradas</th><td>Q{{ resumen.total_multas|floatformat:2 }}</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top: 2em;">Préstamos vencidos</h2>
+  {% if vencidos %}
+  <table>
+    <thead>
+      <tr>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha límite</th>
+        <th>Días de retraso</th>
+        <th>Multa acumulada</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prestamo in vencidos %}
+      <tr>
+        <td>{{ prestamo.libro.titulo }}</td>
+        <td>{{ prestamo.usuario.username }}</td>
+        <td>{{ prestamo.fecha_limite|date:"d/m/Y" }}</td>
+        <td>{{ prestamo.dias_retraso }}</td>
+        <td>Q{{ prestamo.multa_acumulada|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No hay préstamos vencidos.</p>
+  {% endif %}
+
+  <h2 style="margin-top: 2em;">Libros más prestados</h2>
+  {% if mas_prestados %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Libro</th>
+        <th>Autor</th>
+        <th>Veces prestado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for libro in mas_prestados %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.total_prestamos }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>Todavía no hay préstamos registrados.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

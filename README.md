@@ -15,6 +15,7 @@ Proyecto académico desarrollado con **Python** y **Django**.
 | 3 | Libros | `catalogo` | Catálogo de libros con ISBN y número de ejemplares |
 | 4 | Préstamos | `prestamos` | Registro de qué usuario se lleva qué libro |
 | 5 | Devoluciones y multas | `prestamos` | Registro de devoluciones y cálculo automático de multas |
+| 6 | Reportes | `reportes` | Resumen general, préstamos vencidos y libros más prestados. Dirección: `/reportes/` (solo Bibliotecario y superusuario) |
 
 ### Relaciones entre módulos
 
@@ -126,13 +127,14 @@ python manage.py runserver
 pytest -v
 ```
 
-Resultado esperado: **15 passed**.
+Resultado esperado: **21 passed**.
 
 | Archivo | Tipo | Qué prueba |
 |---|---|---|
 | `catalogo/tests.py` | Unitarias e integración | Formato del libro, ISBN único, protección al borrar autores |
 | `prestamos/tests.py` | Unitarias e integración | Cálculo de multas, disponibilidad de ejemplares, validación de fechas |
 | `prestamos/test_roles.py` | Integración | Creación de grupos y permisos de cada rol |
+| `reportes/tests.py` | Integración | Cálculos de los reportes y acceso según el rol |
 
 - **Pruebas unitarias:** revisan una sola función sin base de datos.
 - **Pruebas de integración:** revisan varias partes juntas con una base de datos temporal. Los datos reales no se modifican.
@@ -196,5 +198,5 @@ biblioteca/
 
 - Un estudiante puede ver **todos** los préstamos, no solo los suyos. Requiere pantallas propias fuera del panel de administración.
 - La interfaz usa el panel de administración de Django; no hay pantallas públicas personalizadas.
-- Falta el módulo de **Reportes** (préstamos vencidos y libros más prestados).
+   - Falta el módulo de **Reportes** (préstamos vencidos y libros más prestados).
 - No hay pruebas de extremo a extremo (simulación de un usuario en el navegador).
