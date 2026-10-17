@@ -13,3 +13,6 @@ db.sqlite3
 
 # Archivos temporales de pytest
 .pytest_cache/
+
+# Archivos temporales del escáner de SonarQube
+.scannerwork/

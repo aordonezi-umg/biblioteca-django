@@ -3,10 +3,12 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.utils import timezone
+from django.views.decorators.http import require_GET
 
 from . import servicios
 
 
+@require_GET
 @staff_member_required
 @permission_required("prestamos.change_prestamo", raise_exception=True)
 def panel_reportes(request):

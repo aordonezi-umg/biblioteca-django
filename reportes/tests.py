@@ -144,3 +144,12 @@ def test_bibliotecario_puede_ver_reportes(client, django_user_model):
     respuesta = client.get(reverse("reportes:panel"))
     assert respuesta.status_code == 200
     assert "Préstamos vencidos" in respuesta.content.decode()
+
+
+
+@pytest.mark.django_db
+def test_reportes_rechaza_peticiones_post(client, django_user_model):
+       bibliotecario = crear_usuario_con_rol(django_user_model, "biblio", "Bibliotecario")
+       client.force_login(bibliotecario)
+       respuesta = client.post(reverse("reportes:panel"))
+       assert respuesta.status_code == 405

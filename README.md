@@ -108,6 +108,36 @@ Luego se abre en el navegador: **http://127.0.0.1:8000/admin**
 
 ---
 
+### Archivo de configuración privada `.env` (obligatorio)
+
+El proyecto lee la clave secreta y el modo DEBUG desde un archivo `.env`, que **no se sube a GitHub**. En una computadora nueva hay que crearlo **antes** de ejecutar `migrate`:
+
+1. Generar una clave secreta nueva:
+```powershell
+   python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+2. Crear el archivo `.env` en la raíz del proyecto (junto a `manage.py`) con este contenido:
+```dotenv
+   DJANGO_SECRET_KEY='pegar_aqui_la_clave_generada'
+   DJANGO_DEBUG=True
+```
+
+> Si falta este archivo, Django muestra el error `KeyError: 'DJANGO_SECRET_KEY'`.
+
+---
+
+## Análisis estático con SonarQube Cloud
+
+El proyecto se analiza con **SonarScanner CLI**. La configuración está en `sonar-project.properties`.
+
+```powershell
+$env:SONAR_TOKEN = "tu_token"
+sonar-scanner.bat
+```
+
+Resultados: https://sonarcloud.io/project/overview?id=aordonezi-umg_biblioteca-django
+
+---
 ## Uso diario
 
 ```powershell
