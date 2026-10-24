@@ -1,0 +1,7 @@
+[run]
+relative_files = True
+omit =
+    venv/*
+    */migrations/*
+    */tests.py
+    */test_*.py

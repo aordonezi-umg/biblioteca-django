@@ -16,3 +16,8 @@ db.sqlite3
 
 # Archivos temporales del escáner de SonarQube
 .scannerwork/
+
+
+# Reportes de cobertura (se generan en cada ejecución)
+.coverage
+coverage.xml
