@@ -142,3 +142,13 @@ def test_rechaza_devolucion_anterior_a_la_fecha_de_prestamo(libro, usuario):
     with pytest.raises(ValidationError) as error:
         prestamo.full_clean()
     assert "fecha_devolucion" in error.value.message_dict
+    
+
+def test_multa_no_supera_el_tope_maximo():
+    # 55 días de retraso x Q5 = Q275, pero el tope es Q100
+    prestamo = Prestamo(
+        fecha_prestamo=date(2026, 9, 1),
+        fecha_limite=date(2026, 9, 5),
+        fecha_devolucion=date(2026, 10, 30),
+    )
+    assert prestamo.calcular_multa() == Decimal("100.00")

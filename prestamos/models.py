@@ -11,6 +11,7 @@ from catalogo.models import Libro
 # Reglas de negocio en un solo lugar, para cambiarlas fácilmente
 DIAS_PRESTAMO = 7
 MULTA_POR_DIA = Decimal("5.00")
+MULTA_MAXIMA = Decimal("100.00")
 
 
 def fecha_limite_por_defecto():
@@ -63,7 +64,7 @@ class Prestamo(models.Model):
         dias_retraso = (fecha - self.fecha_limite).days
         if dias_retraso <= 0:
             return Decimal("0.00")
-        return MULTA_POR_DIA * dias_retraso
+        return min(MULTA_POR_DIA * dias_retraso, MULTA_MAXIMA)
 
     def clean(self):
         """Validaciones de reglas de negocio antes de guardar."""
